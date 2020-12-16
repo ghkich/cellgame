@@ -2,15 +2,75 @@ html {
   background-color: black;
 }
 
+#text {
+  top: -20px;
+  left: -33px;
+  width: 100px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  text-align: center;
+  color: white;
+  font-family: "Helvetica Neue";
+  font-size: 12px;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.15s linear;
+}
+
+#text.showing {
+  opacity: 0.5;
+  animation: textFadeIn 0.4s ease;
+}
+
+.letter {
+  color: rgb(255, 106, 106);
+  position: absolute;
+  font-family: "Helvetica Neue";
+  top: 9px;
+  left: 0;
+  width: 32px;
+  text-align: center;
+  opacity: 0;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.show {
+  opacity: 1;
+  transition: opacity 0.15s linear;
+}
+
+.hide {
+  opacity: 0;
+  transition: opacity 0.15s linear;
+}
+
+@keyframes textFadeIn {
+  0% {
+    transform: translate(0, 80%) scale(0.2);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
 .ball {
   width: 32px;
   height: 32px;
-  border-radius: 50%;
+  transition: transform 0.75s ease;
   position: absolute;
-  transition: transform 0.1s ease;
-  background-color: rgb(255, 106, 106);
+}
 
+.outer {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.5);
+  transition: transform 0.2s linear;
 }
 
 .ball .inner {
@@ -19,20 +79,47 @@ html {
   border-radius: 50%;
   position: absolute;
   background-color: rgb(255, 106, 106);
+  transition: transform 0.1s ease;
 
-  top: 10px;
-  left: 10px;
+  top: 11px;
+  left: 11px;
 }
 
-.ball.pulse {
-  animation: pulse 0.5s;
+.inner.idle {
+  animation: infinite heartbeat 1s;
+}
+
+.outer.pulse {
+  animation: pulse 1s;
 }
 
 @keyframes pulse {
   0% {
-    box-shadow: 0px 0px 0px 0px rgb(255, 255, 255);
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(0.5);
+  }
+  30% {
+    transform: scale(1);
+    box-shadow: 0px 0px 0px 0px rgb(255, 255, 255, 0.5);
   }
   100% {
-    box-shadow: 0px 0px 3px 15px rgba(255, 255, 255, 0);
+    box-shadow: 0px 0px 5px 25px rgba(255, 255, 255, 0);
+  }
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(0.9);
+    background-color: rgb(235, 108, 108);
+  }
+  50% {
+    transform: scale(1.2);
+    background-color: rgb(245, 74, 74);
+  }
+  100% {
+    transform: scale(0.9);
+    background-color: rgb(235, 108, 108);
   }
 }
